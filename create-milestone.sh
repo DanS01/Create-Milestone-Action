@@ -2,6 +2,7 @@
 
 # Initialize constants
 LOWER_BOUND=3
+NEW_TARGET=14
 
 # Initialize variables
 MILESTONE_LINKED=''
@@ -27,8 +28,12 @@ echo Milestone Linked: "$MILESTONE_LINKED"
 
 CURRENT_DATETIME=$( echo $(date +'%Y-%m-%dT%H:%M:%SZ') )
 echo Current DateTime: "$CURRENT_DATETIME"
-LOWER_BOUND_DATETIME=$( echo $(date +'%Y-%m-%dT%H:%M:%SZ' -d "+$LOWER_BOUND days") )
+LOWER_BOUND_DATETIME=$( echo $(date +'%Y-%m-%dT%H:%M:%SZ' --date "+$LOWER_BOUND days") )
 echo Lower Bound DateTime: "$LOWER_BOUND_DATETIME"
+NEW_TARGET_DATETIME=$( echo $(date +'%Y-%m-%dT%H:%M:%SZ' --date "+$NEW_TARGET days") )
+echo New Target DateTime: "$NEW_TARGET_DATETIME"
+NEW_TARGET_DATETIME_REF=$( echo $(date +'%Y-%m-%dT%H:%M:%SZ' --date "$CURRENT_DATETIME +$NEW_TARGET days") )
+echo New Target DateTime Ref: "$NEW_TARGET_DATETIME_REF"
 
 # Get all OPEN milestones with a due date newer than the current date and time
 MILESTONE_DATA=$( curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/milestones?state=open\&sort=due_on\&direction=asc )
