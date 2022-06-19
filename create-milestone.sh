@@ -86,7 +86,7 @@ else
         echo "$MILESTONE"
 
         echo Milestone Number:
-        MILESTONE_NUMBER=$( $MILESTONE | jq --raw-output '.number' )
+        MILESTONE_NUMBER=$( echo $MILESTONE | jq --raw-output '.number' )
         echo "$MILESTONE_NUMBER"
 
         link_milestone_curl_cmd $MILESTONE_NUMBER
@@ -100,7 +100,9 @@ else
         echo Created Milestone:
         echo "$CREATED_MILESTONE"
 
-        MILESTONE_NUMBER=$( $CREATED_MILESTONE | jq --raw-output '.number' )
+        echo Milestone Number:
+        MILESTONE_NUMBER=$( echo $CREATED_MILESTONE | jq --raw-output '.number' )
+        echo "$MILESTONE_NUMBER"
         link_milestone_curl_cmd $MILESTONE_NUMBER
 
         echo Linked Pull Request:
