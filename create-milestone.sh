@@ -95,7 +95,11 @@ else
     else
         echo Future Milestone List is EMPTY
 
-        create_milestone_curl_cmd $NEW_TARGET_DATETIME_REF $NEW_TARGET_DATETIME_REF
+        MILESTONE_TITLE=$( echo $(date +'%Y-%m-%d' --date "$NEW_TARGET_DATETIME_REF") )
+        echo Milestone Title:
+        echo "$MILESTONE_TITLE"
+
+        create_milestone_curl_cmd $MILESTONE_TITLE $NEW_TARGET_DATETIME_REF
 
         echo Created Milestone:
         echo "$CREATED_MILESTONE"
