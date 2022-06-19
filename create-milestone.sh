@@ -19,7 +19,7 @@ function create_milestone_curl_cmd()
     DUE_ON=${2}
 
     # Need to authenticate to obtain write access for the REST API POST event
-    CREATED_MILESTONE=$( curl --silent -X POST -H "Authorization: token ${SECRETS_TOKEN}" "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/milestones -d '{"title":"${TITLE}","due_on":"${DUE_ON}","state":"open"}' )
+    CREATED_MILESTONE=$( curl --silent -X POST -H "Authorization: token ${SECRETS_TOKEN}" "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/milestones -d '{"title":'\"${TITLE}\"',"due_on":'\"${DUE_ON}\"',"state":"open"}' )
 }
 
 function link_milestone_curl_cmd()
@@ -31,7 +31,7 @@ function link_milestone_curl_cmd()
     ISSUE_NUMBER="${PULL_REQUEST_NUMBER}"
 
     # Need to authenticate to obtain write access for the REST API PATCH event
-    LINKED_PULL_REQUEST=$( curl --silent -X PATCH -H "Authorization: token ${SECRETS_TOKEN}" "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/issues/"${ISSUE_NUMBER}" -d '{"milestone":"${MILESTONE_NUMBER}"}' )
+    LINKED_PULL_REQUEST=$( curl --silent -X PATCH -H "Authorization: token ${SECRETS_TOKEN}" "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/issues/"${ISSUE_NUMBER}" -d '{"milestone":'\"${MILESTONE_NUMBER}\"'}' )
 }
 
 # --------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ echo Milestone Linked: "$MILESTONE_LINKED"
 if [[ $MILESTONE_LINKED == "true" ]];
 then
     echo A milestone is already linked!
-    echo New milestone cannot be created and linked
+    echo New milestone cannot be created or linked
 else
     echo There is no milestone linked to the pull request
 
