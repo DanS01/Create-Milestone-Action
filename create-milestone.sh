@@ -71,7 +71,7 @@ else
 
     # Get all OPEN milestones with a due date newer than the current date and time
     MILESTONE_DATA=$( curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"${REPOSITORY}"/milestones?state=open\&sort=due_on\&direction=asc )
-    FUTURE_MILESTONES=$( echo $MILESTONE_DATA | jq --raw-output '.[] | select((.due_on >= '\"$LOWER_BOUND_DATETIME_REF\"') and (.due_on <= '\"$UPPER_BOUND_DATETIME_REF\"'))' )
+    FUTURE_MILESTONES=$( echo $MILESTONE_DATA | jq --raw-output '[ .[] | select((.due_on >= '\"$LOWER_BOUND_DATETIME_REF\"') and (.due_on <= '\"$UPPER_BOUND_DATETIME_REF\"')) ]' )
 
     echo Future Milestones:
     echo "$FUTURE_MILESTONES"
